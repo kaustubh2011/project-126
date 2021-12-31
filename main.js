@@ -1,11 +1,18 @@
-
-
+song1="";
+song2="";
+song1status="";
+song2status="";
 scorerightwrist=0;
 scoreleftwrist=0;
 rightwristx=0;
 rightwristy=0;
 leftwristx=0;
 leftwristy=0;
+function preload()
+{
+    song1=loadSound("song1.mp3");
+    song2=loadSound("song2.mp3");
+}
 function setup()
 {
     canvas=createCanvas(500,400);
@@ -38,6 +45,30 @@ function gotposes(results)
 function draw()
 {
     image(video,0,0,500,400);
+    song1status=song1.isPlaying();
+    song2status=song2.isPlaying();
+    fill("#FF0000");
+    stroke("#FF0000");
+    if(scorerightwrist>0.2)
+    {
+        circle(rightwristx,rightwristy,20);
+        song2.stop();
+        if(song1status==false)
+        {
+            song1.play();
+            document.getElementById("song").innerHTML="Playing - Teri Mitti Song";
+        }
+    }
+    if(scoreleftwrist>0.2)
+    {
+        circle(leftwristx,leftwristy,20);
+        song1.stop();
+        if(song2status==false)
+        {
+            song2.play();
+            document.getElementById("song").innerHTML="Playing - Raatan Lambiyan Song";
+        }
+    }
 }
 function play()
 {
